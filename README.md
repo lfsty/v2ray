@@ -9,12 +9,7 @@
 ```
 bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/master/install.sh)
 ```
-
-安装（包含v2ray的自带转发规则）
-```
-./install.sh
-```
 卸载
 ```
-./uninstall.sh
+bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/master/uninstall.sh)
 ```
