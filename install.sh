@@ -293,6 +293,10 @@ genSSL(){
     echo "申请证书"
     apt install certbot -y
     certbot certonly --standalone --agree-tos --register-unsafely-without-email -d ${domain}
+    if [ "$?" = 1 ];then
+        colorEcho ${YELLOW} "申请证书失败"
+        exit
+    fi  
 }
 
 #Vless+ws+TLS安装
@@ -347,13 +351,14 @@ install_vless(){
 install_command(){
     apt-get install curl -y
 }
-
+docker_install
+install_command
+echo "请选择安装选项:"
 echo "1) Vmess"
 echo "2) Vless+ws+TLS(需要一个已经完成解析并指向此服务器的域名)"
 read -p "请选择：" num
 
-docker_install
-install_command
+
 if [ ! -d "${path}"  ];then
   mkdir "${path}"
 fi
@@ -366,5 +371,5 @@ case ${num} in
         install_vless
         ;;
     *)
-        echo "error"
+        colorEcho ${YELLOW} "选择错误"
 esac

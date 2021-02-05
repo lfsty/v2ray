@@ -24,4 +24,8 @@ bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/master/uninstall.sh
   /usr/bin/certbot renew
   ```
 
-  
+* 2021.2.5
+
+  增加ssl证书申请是否成功判断
+
+ 
