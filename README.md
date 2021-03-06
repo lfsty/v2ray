@@ -15,6 +15,10 @@ bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/master/uninstall.sh
 ```
 
 
+* 2021.3.6
+
+  集成卸载功能
+
 * 2021.3.5
 
   增加自有ssl证书选项

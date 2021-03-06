@@ -331,6 +331,7 @@ dockerRunImages(){
 
 install(){
 
+    uninstall
     apt-get install curl -y
     if [ ! -d "${path}"  ];then
         mkdir "${path}"
@@ -448,9 +449,23 @@ install(){
     esac
 }
 
+uninstall(){
+    if [ -d "${path}"  ];then
+        rm -rf "${path}"
+    fi
+    docker -v
+    if [ $? -eq  0 ]; then
+        docker rm -f nginx
+        docker rm -f vmess
+        docker rm -f vless
+        docker network rm nginx-v2ray
+    fi
+}
+
 echo "请选择安装选项:"
 echo "1) Vmess"
 echo "2) Vless+ws+TLS"
+echo "3) 卸载"
 read -p "请选择：" num
 
 case ${num} in
@@ -461,6 +476,10 @@ case ${num} in
     2)
         type="vless_ws_tls"
         install
+        ;;
+    3) 
+        uninstall
+        colorEcho ${GREEN} "卸载完成"
         ;;
     *)
         colorEcho ${YELLOW} "选择错误"
