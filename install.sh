@@ -455,10 +455,18 @@ uninstall(){
     fi
     docker -v
     if [ $? -eq  0 ]; then
-        docker rm -f nginx
-        docker rm -f vmess
-        docker rm -f vless
-        docker network rm nginx-v2ray
+        if [ -n "$(docker ps | grep nginx)" ];then
+            docker rm -f nginx
+        fi
+        if [ -n "$(docker ps | grep vmess)" ];then
+            docker rm -f vmess
+        fi
+        if [ -n "$(docker ps | grep vless)" ];then
+            docker rm -f vless
+        fi
+        if [ -n "$(docker network ls | grep nginx-v2ray)" ];then
+            docker network rm nginx-v2ray
+        fi
     fi
 }
 
