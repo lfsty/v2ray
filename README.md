@@ -9,10 +9,6 @@
 ```shell
 bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/master/install.sh)
 ```
-卸载
-```shell
-bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/master/uninstall.sh)
-```
 
 
 * 2021.3.6
