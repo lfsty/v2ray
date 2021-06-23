@@ -1,4 +1,10 @@
 #!/bin/bash
+GREEN="32m"
+BLUE="36m"
+YELLOW="33m"
+colorEcho(){
+  echo -e "\033[${1}${2}\033[0m"
+}
 
 echo "请选择安装选项:"
 echo "1) Vmess"
