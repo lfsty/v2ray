@@ -7,7 +7,7 @@
 
 安装
 ```shell
-bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/master/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/master/start.sh)
 ```
 
 
