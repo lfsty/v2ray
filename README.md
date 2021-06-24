@@ -1,9 +1,12 @@
 # v2ray 部署
 
-原文地址（旧版本）：https://toutyrater.github.io/  
-仓库地址（新版本）：https://github.com/v2fly/fhs-install-v2ray
+> 原文地址（旧版本）：https://toutyrater.github.io/  
+> 
+> 仓库地址（新版本）：https://github.com/v2fly/fhs-install-v2ray
+> 
+> v2ray镜像使用：[teddysun/v2ray](https://hub.docker.com/r/teddysun/v2ray)
 
-仅供自己学习使用，Ubuntu18.0.4+,不定期维护
+仅供自己学习使用，Ubuntu18.0.4+，不定期维护
 
 安装
 ```shell
@@ -16,6 +19,8 @@ bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/master/start.sh)
   * 拆分文件
 
   * 支持ipv6
+
+  * 使用docker-compose
 
 * 2021.3.6
 
