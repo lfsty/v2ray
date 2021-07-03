@@ -307,6 +307,9 @@ if [ ${confirm} == "y" ] || [ ${confirm} == "Y" ];then
         exit
     fi
 
+    if [ ! -d "${ROOT}/nginx"  ];then
+        mkdir "${ROOT}/nginx"
+    fi
     if [ ! -d "${ROOT}/nginx/ssl"  ];then
         mkdir "${ROOT}/nginx/ssl"
     fi
