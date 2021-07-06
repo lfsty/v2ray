@@ -182,8 +182,8 @@ networks:
         ipam: 
             driver: default
             config: 
-                - subnet: 2001:3200:3200::/64
-                  gateway: 2001:3200:3200::1
+                - subnet: fe00::/120
+                  gateway: fe00::1
 EOF
 }
 

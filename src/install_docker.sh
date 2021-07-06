@@ -11,7 +11,7 @@ else
     cat > "/etc/docker/daemon.json" <<-EOF
 {
     "ipv6": true,
-    "fixed-cidr-v6": "fd00::/80",
+    "fixed-cidr-v6": "fe00::/64",
     "experimental": true,
     "ip6tables": true
 }
