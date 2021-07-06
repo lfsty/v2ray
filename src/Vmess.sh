@@ -82,8 +82,8 @@ networks:
         ipam: 
           driver: default
           config: 
-              - subnet: fe00::/120
-                gateway: fe00::1
+              - subnet: fd00::/120
+                gateway: fd00::1
 EOF
 }
 
