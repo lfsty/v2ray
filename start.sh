@@ -6,6 +6,38 @@ colorEcho(){
   echo -e "\033[${1}${2}\033[0m"
 }
 
+DEV=false
+
+ARGS=`getopt -o d -a -l dev -- "$@"`
+if [ $? != 0 ]; then
+    echo "Terminating..."
+    exit 1
+fi
+eval set -- "${ARGS}"
+while true
+do
+    case "$1" in
+        -d | --dev | -dev)
+            DEV=true
+            shift
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            echo "Internal error!"
+            exit 1
+            ;;
+    esac
+done
+
+if [ ${DEV} == "false" ];then
+    TAG=master
+else
+    TAG=dev
+fi
+
 echo "请选择安装选项:"
 echo "1) Vmess"
 echo "2) Vless+ws+TLS"
@@ -14,15 +46,15 @@ read -p "请选择：" num
 
 case ${num} in
     1)
-        bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/master/src/install_docker.sh)
-        bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/master/src/Vmess.sh)
+        bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/${TAG}/src/install_docker.sh)
+        bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/${TAG}/src/Vmess.sh)
         ;;
     2)
-        bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/master/src/install_docker.sh)
-        bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/master/src/Vless_ws_tls.sh)
+        bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/${TAG}/src/install_docker.sh)
+        bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/${TAG}/src/Vless_ws_tls.sh)
         ;;
     3) 
-        bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/master/src/uninstall.sh)
+        bash <(curl -s https://raw.githubusercontent.com/lfsty/v2ray/${TAG}/src/uninstall.sh)
         colorEcho ${GREEN} "卸载完成"
         ;;
     *)

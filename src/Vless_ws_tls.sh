@@ -7,7 +7,7 @@ colorEcho(){
 }
 
 #本机ip
-LOCAL_IP=$(curl -4 icanhazip.com)
+LOCAL_IP=$(curl -sSL -4 icanhazip.com)
 #端口号
 PORT=$(shuf -i 10000-65000 -n 1)
 #uuid
@@ -326,7 +326,7 @@ else
     echo "证书申请成功..."
 fi
 
-curl https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh -o ${ROOT}/wait-for-it.sh
+curl -sSL https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh -o ${ROOT}/wait-for-it.sh
 genVlessConfig
 genNginxConfig
 genVlessDockerComposeConfig

@@ -13,7 +13,7 @@ PORT=$(shuf -i 10000-65000 -n 1)
 #uuid
 UUID=$(cat /proc/sys/kernel/random/uuid)
 #本机ip
-LOCAL_IP=$(curl -4 icanhazip.com)
+LOCAL_IP=$(curl -sSL -4 icanhazip.com)
 
 genVmessConfig(){
     if [ ! -d "${ROOT}/v2ray"  ];then
