@@ -106,6 +106,12 @@ EOF
     vmess="vmess://$(cat vmess.json | base64 -w 0)"
     rm -rf vmess.json
 
+    colorEcho ${GREEN}  "Vmess安装成功，相关配置如下："
+    colorEcho ${BLUE} "协议:VMESS"
+    colorEcho ${BLUE} "IP(address):${LOCAL_IP}"
+    colorEcho ${BLUE} "端口(port):${PORT}"
+    colorEcho ${BLUE} "id(uuid):${UUID}"
+
     colorEcho ${GREEN}  "您的vmess链接为："
     colorEcho ${BLUE} ${vmess}
 }
