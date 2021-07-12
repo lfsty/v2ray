@@ -15,10 +15,25 @@ UUID=$(cat /proc/sys/kernel/random/uuid)
 #配置文件存放路径
 ROOT="/var/lfsty"
 
-genVlessConfig(){
-    if [ ! -d "${ROOT}/v2ray"  ];then
-        mkdir "${ROOT}/v2ray"
+createDir(){
+    if [ ! -d "${ROOT}"  ];then
+        mkdir -p "${ROOT}"
     fi
+    if [ ! -d "${ROOT}/nginx"  ];then
+        mkdir -p "${ROOT}/nginx"
+    fi
+    if [ ! -d "${ROOT}/nginx/ssl"  ];then
+        mkdir -p "${ROOT}/nginx/ssl"
+    fi
+    if [ ! -d "${ROOT}/nginx/conf.d"  ];then
+        mkdir -p "${ROOT}/nginx/conf.d"
+    fi
+    if [ ! -d "${ROOT}/v2ray"  ];then
+        mkdir -p "${ROOT}/v2ray"
+    fi
+}
+
+genVlessConfig(){
     cat > "${ROOT}/v2ray/config.json" <<-EOF
 {
   "inbounds": [{
@@ -69,10 +84,6 @@ EOF
 
 #生成nginx配置文件
 genNginxConfig(){
-    if [ ! -d "${ROOT}/nginx"  ];then
-            mkdir "${ROOT}/nginx"
-    fi
-
     cat > "${ROOT}/nginx/nginx.conf" <<-EOF
 user  nginx;
 worker_processes  1;
@@ -98,9 +109,6 @@ http {
 }
 EOF
 
-    if [ ! -d "${ROOT}/nginx/conf.d"  ];then
-            mkdir "${ROOT}/nginx/conf.d"
-    fi
     cat > "${ROOT}/nginx/conf.d/${DOMAIN}.conf" <<-EOF
 server {
     listen 80;
@@ -182,8 +190,8 @@ networks:
         ipam: 
             driver: default
             config: 
-                - subnet: fd00::/120
-                  gateway: fd00::1
+                - subnet: fe10::/120
+                gateway: fe10::1
 EOF
 }
 
@@ -208,12 +216,6 @@ genSSL(){
         colorEcho ${YELLOW} "申请证书失败"
         exit
     fi  
-    if [ ! -d "${ROOT}/nginx"  ];then
-        mkdir "${ROOT}/nginx"
-    fi
-    if [ ! -d "${ROOT}/nginx/ssl"  ];then
-        mkdir "${ROOT}/nginx/ssl"
-    fi
     ln /etc/letsencrypt/archive/${DOMAIN}/privkey1.pem ${ROOT}/nginx/ssl/${DOMAIN}.key
     ln /etc/letsencrypt/archive/${DOMAIN}/fullchain1.pem ${ROOT}/nginx/ssl/${DOMAIN}.pem
 }
@@ -268,10 +270,7 @@ do
     esac
 done
 
-if [ ! -d "${ROOT}"  ];then
-    mkdir "${ROOT}"
-fi
-
+createDir
 getDomain
 DOMAIN_IP=`ping ${DOMAIN} -c 1 | sed '1{s/[^(]*(//;s/).*//;q}'`
 colorEcho ${YELLOW} "您的域名为：${DOMAIN}，解析为：${DOMAIN_IP}"
@@ -312,12 +311,6 @@ if [ ${confirm} == "y" ] || [ ${confirm} == "Y" ];then
         exit
     fi
 
-    if [ ! -d "${ROOT}/nginx"  ];then
-        mkdir "${ROOT}/nginx"
-    fi
-    if [ ! -d "${ROOT}/nginx/ssl"  ];then
-        mkdir "${ROOT}/nginx/ssl"
-    fi
     cp "./${DOMAIN}.key" "${ROOT}/nginx/ssl/${DOMAIN}.key"
     cp "./${DOMAIN}.pem" "${ROOT}/nginx/ssl/${DOMAIN}.pem"
 else

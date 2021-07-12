@@ -15,10 +15,18 @@ UUID=$(cat /proc/sys/kernel/random/uuid)
 #本机ip
 LOCAL_IP=$(curl -sSL -4 icanhazip.com)
 
-genVmessConfig(){
-    if [ ! -d "${ROOT}/v2ray"  ];then
-        mkdir "${ROOT}/v2ray"
-    fi  
+
+
+createDir(){
+  if [ ! -d "${ROOT}"  ];then
+    mkdir -p "${ROOT}"
+  fi
+  if [ ! -d "${ROOT}/v2ray"  ];then
+    mkdir -p "${ROOT}/v2ray"
+  fi
+}
+
+genVmessConfig(){ 
     cat > "${ROOT}/v2ray/config.json" <<-EOF
 {
   "log":{
@@ -82,8 +90,8 @@ networks:
         ipam: 
           driver: default
           config: 
-              - subnet: fd00::/120
-                gateway: fd00::1
+              - subnet: fe10::/120
+                gateway: fe10::1
 EOF
 }
 
@@ -149,10 +157,8 @@ do
     esac
 done
 
-if [ ! -d "${ROOT}"  ];then
-    mkdir "${ROOT}"
-fi
 
+createDir
 genVmessConfig
 genVmessDockerComposeConfig
 docker-compose -f ${ROOT}/docker-compose.yml up -d

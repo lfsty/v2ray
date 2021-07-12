@@ -6,9 +6,9 @@ colorEcho(){
   echo -e "\033[${1}${2}\033[0m"
 }
 
-DEV=false
+TAG="master"
 
-ARGS=`getopt -o d -a -l dev -- "$@"`
+ARGS=`getopt -o '' -a -l dev -- "$@"`
 if [ $? != 0 ]; then
     echo "Terminating..."
     exit 1
@@ -17,8 +17,8 @@ eval set -- "${ARGS}"
 while true
 do
     case "$1" in
-        -d | --dev | -dev)
-            DEV=true
+        --dev)
+            TAG="dev"
             shift
             ;;
         --)
@@ -32,11 +32,6 @@ do
     esac
 done
 
-if [ ${DEV} == "false" ];then
-    TAG=master
-else
-    TAG=dev
-fi
 
 echo "请选择安装选项:"
 echo "1) Vmess"
